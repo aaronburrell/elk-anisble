@@ -1,0 +1,19 @@
+
+  - name: Download Elasticsearch
+    get_url: url=https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.3.3/elasticsearch-2.3.3.rpm dest=.
+
+  - name: Copy rpm file to server
+    copy:
+      src: elasticsearch-2.3.3.rpm
+      dest: /tmp/elasticsearch-2.3.3.rpm
+
+  - name: Install Elasticsearch
+    yum:
+      name: /tmp/elasticsearch-2.3.3.rpm
+      state: present
+
+  - name: Start Elasticsearch
+    command: "systemctl start elasticsearch"
+
+  - name: Set Elasticsearch to start on bootup
+    command: "systemctl enable elasticsearch"

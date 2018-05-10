@@ -1,0 +1,8 @@
+---
+# main.yml - Main tasks for installing elk software
+
+- include: install_java.yml # Not needed as Java is installed in common
+- include: install_elasticsearch.yml
+- include: install_kibana.yml
+- include: install_nginx.yml
+- include: install_logstash.yml

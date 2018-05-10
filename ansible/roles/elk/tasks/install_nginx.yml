@@ -1,0 +1,44 @@
+
+  - name: Download Nginx
+    get_url: url=http://nginx.org/packages/mainline/centos/7/x86_64/RPMS/nginx-1.13.9-1.el7_4.ngx.x86_64.rpm dest=.
+
+  - name: Copy rpm file to server
+    copy:
+      src: nginx-1.13.9-1.el7_4.ngx.x86_64.rpm
+      dest: /tmp/nginx-1.13.9-1.el7_4.ngx.x86_64.rpm
+
+  - name: Install Nginx
+    yum:
+      name: /tmp/nginx-1.13.9-1.el7_4.ngx.x86_64.rpm
+      state: present
+
+#  - name: Download Httpd
+#    get_url: url=http://vault.centos.org/7.4.1708/updates/Source/SPackages/httpd-2.4.6-67.el7.centos.6.src.rpm dest=.
+#
+#  - name: Copy rpm file to server
+#    copy:
+#      src: httpd-tools-2.4.6-17.el7.x86_64.rpm
+#      dest: /tmp/httpd-tools-2.4.6-17.el7.x86_64.rpm
+
+  - name: Install Http Tools
+    yum:
+      name: httpd-tools-2.4.6
+      state: present
+
+  - name: Remove Line in nginx.conf file
+    lineinfile: dest=/etc/nginx/nginx.conf regexp="^server {" line=""
+
+  - name: Create kibana.conf file
+    copy: src=kibana.conf dest=/etc/nginx/conf.d/kibana.conf
+
+  - name: Create Kibana Username
+    command: "sudo sh -c 'echo -n 'kibanaadmin:' >> /etc/nginx/.htpasswd'"
+
+  - name: Create Kibana Password
+    command: "sudo sh -c 'openssl passwd password >> /etc/nginx/.htpasswd'"
+
+  - name: Start Nginx
+    command: "systemctl start nginx"
+
+  - name: Enable Nginx
+    command: "systemctl enable nginx"

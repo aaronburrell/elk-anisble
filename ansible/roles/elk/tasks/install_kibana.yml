@@ -1,0 +1,22 @@
+
+  - name: Download Kibana
+    get_url: url=https://download.elastic.co/kibana/kibana/kibana-4.5.1-1.x86_64.rpm dest=.
+
+  - name: Copy rpm file to server
+    copy:
+      src: kibana-4.5.1-1.x86_64.rpm
+      dest: /tmp/kibana-4.5.1-1.x86_64.rpm
+
+  - name: Install Kibana
+    yum:
+      name: /tmp/kibana-4.5.1-1.x86_64.rpm
+      state: present
+
+  - name: Update Kibana Configuration file
+    copy: content="host:'localhost'" dest=/opt/kibana/config/kibana.yml
+
+  - name: Start Kibana
+    command: "systemctl start kibana"
+
+  - name: Enable Kibana
+    command: "chkconfig kibana on"

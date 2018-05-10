@@ -1,0 +1,22 @@
+
+  - name: Download Logstash
+    get_url: url=https://download.elastic.co/logstash/logstash/packages/centos/logstash-2.3.2-1.noarch.rpm dest=.
+
+  - name: Copy rpm file to server
+    copy:
+      src: logstash-2.3.2-1.noarch.rpm
+      dest: /tmp/logstash-2.3.2-1.noarch.rpm
+
+  - name: Install Logstash
+    yum:
+      name: /tmp/logstash-2.3.2-1.noarch.rpm
+      state: present
+
+  - name: Create rsyslog.conf file
+    copy: src=rsyslog.conf dest=/etc/rsyslog.d/rsyslog.conf
+
+  - name: Create logstash.conf file
+    copy: src=logstash.conf dest=/etc/logstash/conf.d/logstash.conf
+
+  - name: Allow access in SeLinux
+    command: "setsebool -P httpd_can_network_connect 1"
