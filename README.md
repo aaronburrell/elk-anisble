@@ -1,4 +1,4 @@
-# Configure and Install ELK STACK, OpenLdap, rsyslog, and RDP fix on RHEL using Ansible
+# Configure and Install ELK stack on eEntOS using Ansible
 
 ## ELK Components
 
