@@ -1,4 +1,4 @@
-# Configure and Install ELK stack on eEntOS using Ansible
+# Configure and Install ELK stack on CentOS using Ansible
 
 ## ELK Components
 
