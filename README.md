@@ -20,19 +20,6 @@ http://local-ip-address/
 > * Username - kibanaadmin
 > * Password - password
 
-
-*NOTE: You will need to update the kibana.conf file with the correct
-server IP Address and restart Nginx to get the reverse proxy working correctly.*
-
-*You will also need to:*
-
-> *  sudo vi(or vim) /etc/init.d/logstash
-> *  Update LS_GROUP=logstash to LS_GROUP=adm
-
-*This will allow logstash the permission to access syslogs. You should then
-reboot the server for the updates to process*
-
-
 Run installation of Elk Stack
 > * cd ansible
 > * ./elk-install.sh
